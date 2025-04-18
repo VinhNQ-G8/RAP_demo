@@ -1,8 +1,8 @@
-managed implementation in class zbp_c_alloc_header unique;
+managed implementation in class zbp_i_alloc_header unique;
 strict ( 2 );
 with draft;
 
-define behavior for ZC_ALLOC_HEADER alias Header
+define behavior for ZI_ALLOC_HEADER alias Header
 persistent table zalloc_header
 draft table zalloc_header_d
 lock master
@@ -42,7 +42,7 @@ etag master LocalLastChangedAt
   draft action Resume;
   draft determine action Prepare;
 
-  define behavior for ZC_ALLOC_DETAIL alias Detail
+  define behavior for ZI_ALLOC_DETAIL alias Detail
   persistent table zalloc_detail
   draft table zalloc_detail_d
   lock dependent by _Header
@@ -71,7 +71,7 @@ etag master LocalLastChangedAt
     determination calculateTax on modify { field Amount; }
   }
 
-  define behavior for ZC_ALLOC_ITEM alias Item
+  define behavior for ZI_ALLOC_ITEM alias Item
   persistent table zalloc_item
   draft table zalloc_item_d
   lock dependent by _Header
@@ -101,44 +101,4 @@ etag master LocalLastChangedAt
     validation validateQuantity on save { create; update; }
     determination calculateAmount on modify { field Quantity, Unit; }
   }
-}
-
-projection;
-strict ( 2 );
-use draft;
-
-define behavior for ZC_ALLOC_HEADER alias Header
-use etag
-{
-  use create;
-  use update;
-  use delete;
-
-  use action Edit;
-  use action Activate;
-  use action Discard;
-  use action Resume;
-  use action Prepare;
-
-  use association _Details { create; with draft; }
-}
-
-define behavior for ZC_ALLOC_DETAIL alias Detail
-use etag
-{
-  use update;
-  use delete;
-
-  use association _Header { with draft; }
-  use association _Items { create; with draft; }
-}
-
-define behavior for ZC_ALLOC_ITEM alias Item
-use etag
-{
-  use update;
-  use delete;
-
-  use association _Header { with draft; }
-  use association _Detail { with draft; }
 } 

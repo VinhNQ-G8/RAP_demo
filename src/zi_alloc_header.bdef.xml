@@ -3,25 +3,25 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <BDEF>
-    <NAME>ZC_ALLOC_HEADER</NAME>
+    <NAME>ZI_ALLOC_HEADER</NAME>
     <TYPE>BDEF/BDO</TYPE>
-    <DESCRIPTION>Behavior Definition for ZC_ALLOC_HEADER</DESCRIPTION>
+    <DESCRIPTION>Behavior Definition for ZI_ALLOC_HEADER</DESCRIPTION>
     <DESCRIPTION_TEXT_LIMIT>60</DESCRIPTION_TEXT_LIMIT>
     <LANGUAGE>EN</LANGUAGE>
     <LINKS>
      <item>
-      <HREF>./zc_alloc_header/source/main/versions</HREF>
+      <HREF>./zi_alloc_header/source/main/versions</HREF>
       <REL>http://www.sap.com/adt/relations/versions</REL>
       <TITLE>Historic versions</TITLE>
      </item>
      <item>
-      <HREF>./zc_alloc_header/source/main</HREF>
+      <HREF>./zi_alloc_header/source/main</HREF>
       <REL>http://www.sap.com/adt/relations/source</REL>
       <TYPE>text/plain</TYPE>
       <TITLE>Source Content</TITLE>
      </item>
      <item>
-      <HREF>./zc_alloc_header/source/main</HREF>
+      <HREF>./zi_alloc_header/source/main</HREF>
       <REL>http://www.sap.com/adt/relations/source</REL>
       <TYPE>text/html</TYPE>
       <TITLE>Source Content (HTML)</TITLE>
@@ -29,7 +29,7 @@
     </LINKS>
     <MASTER_LANGUAGE>EN</MASTER_LANGUAGE>
     <ABAP_LANGUAGE_VERSION>5</ABAP_LANGUAGE_VERSION>
-    <SOURCE_URI>./zc_alloc_header/source/main</SOURCE_URI>
+    <SOURCE_URI>./zi_alloc_header/source/main</SOURCE_URI>
     <SOURCE_TYPE>ABAP_SOURCE</SOURCE_TYPE>
     <SOURCE_FIXED_POINT_ARITHMETIC>true</SOURCE_FIXED_POINT_ARITHMETIC>
     <SOURCE_UNICODE_CHECKS_ACTIVE>true</SOURCE_UNICODE_CHECKS_ACTIVE>
