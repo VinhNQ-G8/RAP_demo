@@ -1,0 +1,35 @@
+managed implementation in class zbp_c_alloc_detail unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZC_ALLOC_DETAIL alias Detail
+persistent table zalloc_detail
+draft table zalloc_detail_d
+lock dependent by _Header
+authorization dependent by _Header
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  field ( readonly ) AllocationId;
+  field ( mandatory ) ItemNo;
+
+  association _Header { with draft; }
+  association _Items { create; with draft; }
+
+  mapping for zalloc_detail
+  {
+    AllocationId = allocation_id;
+    ItemNo = item_no;
+    Amount = amount;
+    Currency = currency;
+    TaxRate = tax_rate;
+    Note = note;
+  }
+
+  validation validateAmount on save { create; update; }
+  determination calculateTax on modify { field Amount; }
+
+  draft determine action Prepare;
+} 

@@ -1,0 +1,37 @@
+managed implementation in class zbp_c_alloc_item unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZC_ALLOC_ITEM alias Item
+persistent table zalloc_item
+draft table zalloc_item_d
+lock dependent by _Header
+authorization dependent by _Header
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  field ( readonly ) AllocationId, ItemNo;
+  field ( mandatory ) Material, Quantity, Unit;
+
+  association _Header { with draft; }
+  association _Detail { with draft; }
+
+  mapping for zalloc_item
+  {
+    AllocationId = allocation_id;
+    ItemNo = item_no;
+    AllocNo = alloc_no;
+    Material = material;
+    Quantity = quantity;
+    Unit = unit;
+    Amount = amount;
+    Currency = currency;
+  }
+
+  validation validateQuantity on save { create; update; }
+  determination calculateAmount on modify { field Quantity, Unit; }
+
+  draft determine action Prepare;
+} 
