@@ -5,41 +5,31 @@
    <SRVB>
     <METADATA>
      <NAME>ZUI_ALLOC_V4_0001</NAME>
-     <TYPE>SRVB/SVB</TYPE>
+     <VERSION>active</VERSION>
      <DESCRIPTION>Service Binding for Allocation</DESCRIPTION>
      <LANGUAGE>EN</LANGUAGE>
-     <LINKS>
-      <item>
-       <HREF>/sap/bc/adt/businessservices/odatav4/ZUI_ALLOC_V4_0001</HREF>
-       <REL>http://www.sap.com/categories/odatav4</REL>
-       <TYPE>application/vnd.sap.adt.businessservices.odatav4.v1+xml</TYPE>
-       <TITLE>ODATAV4</TITLE>
-      </item>
-      <item>
-       <HREF>/sap/bc/adt/businessservices/testclass</HREF>
-       <REL>http://www.sap.com/categories/testclass</REL>
-       <TYPE>application/vnd.sap.adt.businessservices.testclass.v1+xml</TYPE>
-       <TITLE>TESTCLASS</TITLE>
-      </item>
-     </LINKS>
+     <EXPOSURE>external</EXPOSURE>
+     <STATE>active</STATE>
      <MASTER_LANGUAGE>EN</MASTER_LANGUAGE>
-     <SOURCE_URI>/sap/bc/adt/businessservices/odatav4/ZUI_ALLOC_V4_0001</SOURCE_URI>
+     <SOURCE_URI>./zui_alloc_v4_0001/source/main</SOURCE_URI>
      <SOURCE_TYPE>ABAP_SOURCE</SOURCE_TYPE>
      <SOURCE_ORIGIN_DESCRIPTION>ABAP Development Tools</SOURCE_ORIGIN_DESCRIPTION>
+     <ABAP_LANGUAGE_VERSION>5</ABAP_LANGUAGE_VERSION>
+     <PUBLISHING>published</PUBLISHING>
     </METADATA>
     <CONTENT>
      <BIND_TYPE_IMPL>
       <NAME>ZUI_ALLOC_V4_0001</NAME>
      </BIND_TYPE_IMPL>
      <BIND_TYPE>ODATA V4</BIND_TYPE>
-     <BIND_TYPE_VERSION>V4</BIND_TYPE_VERSION>
+     <BIND_TYPE_VERSION>v4.0</BIND_TYPE_VERSION>
      <SERVICES>
       <item>
        <SERVICE_NAME>ZUI_ALLOC_V4</SERVICE_NAME>
        <SERVICE_CONTENT>
         <item>
          <SERVICE_VERSION>0001</SERVICE_VERSION>
-         <RELEASE_STATE>NOT_RELEASED</RELEASE_STATE>
+         <RELEASE_STATE>released</RELEASE_STATE>
          <SRVD_REF>
           <URI>/sap/bc/adt/ddic/srvd/sources/zui_alloc_v4</URI>
           <TYPE>SRVD/SRV</TYPE>
@@ -54,8 +44,11 @@
     "SAP__SourceSystem": "LOCAL",
     "SAP__Client": "100",
     "SAP__Language": "EN",
-    "SAP__ApplicationComponent": "XX-PROJ-XX-XXX",
-    "SAP__Description": "Service Binding for Allocation"
+    "SAP__Description": "Service Binding for Allocation",
+    "SAP__ServiceVersion": "0001",
+    "SAP__ServiceProvider": "LOCAL",
+    "SAP__ServiceName": "ZUI_ALLOC_V4",
+    "SAP__ServiceType": "ODATA"
    }
           </CONTENT>
          </BIND_TYPE_DATA>
