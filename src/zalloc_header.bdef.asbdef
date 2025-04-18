@@ -1,0 +1,98 @@
+managed implementation in class zbp_alloc_header unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZALLOC_HEADER alias header
+persistent table zalloc_header
+draft table zalloc_header_d
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) AllocationId, CreatedAt, CreatedBy;
+  field ( mandatory ) InvoiceNo, PostingDate;
+  field ( features : instance ) TotalAmount;
+
+  action ( features : instance ) allocateByAmount result [1] $self;
+  action ( features : instance ) allocateByQuantity result [1] $self;
+
+  validation validateInvoice on save { create; update; }
+
+  draft determine action Prepare {
+    validation validateInvoice;
+  }
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+
+  mapping for zalloc_header {
+    AllocationId = alloc_id;
+    InvoiceNo = invoice_no;
+    PostingDate = posting_date;
+    TotalAmount = total_amount;
+    Currency = currency;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+  }
+
+  association _Details { create; with draft; }
+}
+
+define behavior for ZALLOC_DETAIL alias detail
+persistent table zalloc_detail
+draft table zalloc_detail_d
+lock dependent by _Header
+authorization dependent by _Header
+{
+  update;
+  delete;
+
+  field ( readonly ) AllocationId;
+  field ( mandatory ) Amount, Currency;
+
+  association _Header { with draft; }
+  association _Items { create; with draft; }
+
+  mapping for zalloc_detail {
+    AllocationId = alloc_id;
+    ItemNo = item_no;
+    Amount = amount;
+    Currency = currency;
+    TaxRate = tax_rate;
+    Note = note;
+  }
+}
+
+define behavior for ZALLOC_ITEM alias item
+persistent table zalloc_item
+draft table zalloc_item_d
+lock dependent by _Header
+authorization dependent by _Header
+{
+  update;
+  delete;
+
+  field ( readonly ) AllocationId, ItemNo, AllocNo;
+  field ( mandatory ) Material, Quantity, Unit;
+
+  association _Header { with draft; }
+  association _Detail { with draft; }
+
+  mapping for zalloc_item {
+    AllocationId = alloc_id;
+    ItemNo = item_no;
+    AllocNo = alloc_no;
+    Material = material;
+    Quantity = quantity;
+    Unit = unit;
+    Amount = amount;
+    Currency = currency;
+  }
+} 
