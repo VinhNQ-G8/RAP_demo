@@ -3,23 +3,57 @@
   headerInfo: {
     typeName: 'Allocation',
     typeNamePlural: 'Allocations',
-    title: { type: #STANDARD, value: 'InvoiceNo' }
-  }
+    title: { type: #STANDARD, value: 'InvoiceNo' },
+    description: { value: 'AllocationId' }
+  },
+  presentationVariant: [{
+    sortOrder: [{ by: 'CreatedAt', direction: #DESC }],
+    visualizations: [{type: #AS_LINEITEM}]
+  }],
+  selectionVariant: [{
+    text: 'Default'
+  }]
 }
 annotate view ZC_ALLOC_HEADER with
 {
+  /* Facets */
   @UI.facet: [
-    { id:            'Header',
-      purpose:       #STANDARD,
-      type:         #IDENTIFICATION_REFERENCE,
-      label:        'General Information',
-      position:     10 },
-    { id:            'Details',
-      purpose:       #STANDARD,
-      type:         #LINEITEM_REFERENCE,
-      label:        'Details',
-      position:     20,
-      targetElement: '_Details'}
+    // Report View
+    { id:              'Collection',
+      type:            #COLLECTION,
+      label:           'Allocation Information',
+      position:        10 },
+    { id:              'BasicData',
+      parentId:        'Collection',
+      type:            #FIELDGROUP_REFERENCE,
+      label:           'Basic Data',
+      targetQualifier: 'BasicData',
+      position:        10 },
+    { id:              'StatusData',
+      parentId:        'Collection',
+      type:            #FIELDGROUP_REFERENCE,
+      label:           'Status',
+      targetQualifier: 'StatusData',
+      position:        20 },
+      
+    // Object Page
+    { id:              'GeneralInfo',
+      purpose:         #STANDARD,
+      type:            #IDENTIFICATION_REFERENCE,
+      label:           'General Information',
+      position:        10 },
+    { id:              'Details',
+      purpose:         #STANDARD,
+      type:            #LINEITEM_REFERENCE,
+      label:           'Details',
+      position:        20,
+      targetElement:   '_Details' },
+    { id:              'Items',
+      purpose:         #STANDARD,
+      type:            #LINEITEM_REFERENCE,
+      label:           'Items',
+      position:        30,
+      targetElement:   '_Details._Items' }
   ]
 
   @UI.hidden: true
@@ -27,38 +61,55 @@ annotate view ZC_ALLOC_HEADER with
 
   @UI: {
     lineItem:       [ { position: 10, importance: #HIGH } ],
-    identification: [ { position: 10 } ],
-    selectionField: [ { position: 10 } ]
+    selectionField: [ { position: 10 } ],
+    fieldGroup:     [ { position: 10, qualifier: 'BasicData' } ],
+    identification: [ { position: 10 } ]
   }
+  @UI.textArrangement: #TEXT_ONLY
   InvoiceNo;
 
   @UI: {
     lineItem:       [ { position: 20 } ],
-    identification: [ { position: 20 } ],
-    selectionField: [ { position: 20 } ]
+    selectionField: [ { position: 20 } ],
+    fieldGroup:     [ { position: 20, qualifier: 'BasicData' } ],
+    identification: [ { position: 20 } ]
   }
   PostingDate;
 
   @UI: {
     lineItem:       [ { position: 30 } ],
+    fieldGroup:     [ { position: 30, qualifier: 'BasicData' } ],
     identification: [ { position: 30 } ]
   }
   TotalAmount;
 
   @UI: {
     lineItem:       [ { position: 40 } ],
+    fieldGroup:     [ { position: 40, qualifier: 'BasicData' } ],
     identification: [ { position: 40 } ]
   }
   Currency;
 
   @UI: {
     lineItem:       [ { position: 50 } ],
+    fieldGroup:     [ { position: 10, qualifier: 'StatusData' } ],
     identification: [ { position: 50 } ]
   }
   CreatedBy;
 
   @UI: {
+    fieldGroup:     [ { position: 20, qualifier: 'StatusData' } ],
     identification: [ { position: 60 } ]
   }
   CreatedAt;
+
+  @UI: {
+    fieldGroup:     [ { position: 30, qualifier: 'StatusData' } ]
+  }
+  LastChangedAt;
+
+  @UI: {
+    fieldGroup:     [ { position: 40, qualifier: 'StatusData' } ]
+  }
+  LocalLastChangedAt;
 } 
