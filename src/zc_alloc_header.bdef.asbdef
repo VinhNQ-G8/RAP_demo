@@ -1,0 +1,104 @@
+managed implementation in class zbp_c_alloc_header unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZC_ALLOC_HEADER alias Header
+persistent table zalloc_header
+draft table zalloc_header_d
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) AllocationId, CreatedAt, CreatedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) InvoiceNo;
+  field ( features : instance ) TotalAmount;
+
+  association _Details { create; with draft; }
+
+  mapping for zalloc_header
+  {
+    AllocationId = allocation_id;
+    InvoiceNo = invoice_no;
+    PostingDate = posting_date;
+    TotalAmount = total_amount;
+    Currency = currency;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+
+  validation validateInvoiceNo on save { create; update; }
+  determination calculateTotalAmount on modify { field Amount; }
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  define behavior for ZC_ALLOC_DETAIL alias Detail
+  persistent table zalloc_detail
+  draft table zalloc_detail_d
+  lock dependent by _Header
+  authorization dependent by _Header
+  {
+    update;
+    delete;
+
+    field ( readonly ) AllocationId;
+    field ( mandatory ) ItemNo;
+
+    association _Header { with draft; }
+    association _Items { create; with draft; }
+
+    mapping for zalloc_detail
+    {
+      AllocationId = allocation_id;
+      ItemNo = item_no;
+      Amount = amount;
+      Currency = currency;
+      TaxRate = tax_rate;
+      Note = note;
+    }
+
+    validation validateAmount on save { create; update; }
+    determination calculateTax on modify { field Amount; }
+  }
+
+  define behavior for ZC_ALLOC_ITEM alias Item
+  persistent table zalloc_item
+  draft table zalloc_item_d
+  lock dependent by _Header
+  authorization dependent by _Header
+  {
+    update;
+    delete;
+
+    field ( readonly ) AllocationId, ItemNo;
+    field ( mandatory ) Material, Quantity, Unit;
+
+    association _Header { with draft; }
+    association _Detail { with draft; }
+
+    mapping for zalloc_item
+    {
+      AllocationId = allocation_id;
+      ItemNo = item_no;
+      AllocNo = alloc_no;
+      Material = material;
+      Quantity = quantity;
+      Unit = unit;
+      Amount = amount;
+      Currency = currency;
+    }
+
+    validation validateQuantity on save { create; update; }
+    determination calculateAmount on modify { field Quantity, Unit; }
+  }
+} 
