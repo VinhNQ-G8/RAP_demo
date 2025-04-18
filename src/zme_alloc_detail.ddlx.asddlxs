@@ -1,0 +1,59 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Allocation Detail',
+    typeNamePlural: 'Allocation Details',
+    title: { type: #STANDARD, value: 'ItemNo' }
+  }
+}
+annotate view ZC_ALLOC_DETAIL with
+{
+  @UI.facet: [
+    { id:              'GeneralInfo',
+      purpose:         #STANDARD,
+      type:            #IDENTIFICATION_REFERENCE,
+      label:           'General Information',
+      position:        10 },
+    { id:              'Items',
+      purpose:         #STANDARD,
+      type:            #LINEITEM_REFERENCE,
+      label:           'Items',
+      position:        20,
+      targetElement:   '_Items' }
+  ]
+
+  @UI.hidden: true
+  AllocationId;
+
+  @UI: {
+    lineItem:       [ { position: 10, importance: #HIGH } ],
+    identification: [ { position: 10 } ]
+  }
+  ItemNo;
+
+  @UI: {
+    lineItem:       [ { position: 20 } ],
+    identification: [ { position: 20 } ]
+  }
+  @Semantics.amount.currencyCode: 'Currency'
+  Amount;
+
+  @UI: {
+    lineItem:       [ { position: 30 } ],
+    identification: [ { position: 30 } ]
+  }
+  Currency;
+
+  @UI: {
+    lineItem:       [ { position: 40 } ],
+    identification: [ { position: 40 } ]
+  }
+  TaxRate;
+
+  @UI: {
+    lineItem:       [ { position: 50 } ],
+    identification: [ { position: 50 } ],
+    multiLineText: true
+  }
+  Note;
+} 
