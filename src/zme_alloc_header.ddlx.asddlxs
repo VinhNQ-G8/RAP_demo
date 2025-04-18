@@ -1,0 +1,64 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Allocation',
+    typeNamePlural: 'Allocations',
+    title: { type: #STANDARD, value: 'InvoiceNo' }
+  }
+}
+annotate view ZC_ALLOC_HEADER with
+{
+  @UI.facet: [
+    { id:            'Header',
+      purpose:       #STANDARD,
+      type:         #IDENTIFICATION_REFERENCE,
+      label:        'General Information',
+      position:     10 },
+    { id:            'Details',
+      purpose:       #STANDARD,
+      type:         #LINEITEM_REFERENCE,
+      label:        'Details',
+      position:     20,
+      targetElement: '_Details'}
+  ]
+
+  @UI.hidden: true
+  AllocationId;
+
+  @UI: {
+    lineItem:       [ { position: 10, importance: #HIGH } ],
+    identification: [ { position: 10 } ],
+    selectionField: [ { position: 10 } ]
+  }
+  InvoiceNo;
+
+  @UI: {
+    lineItem:       [ { position: 20 } ],
+    identification: [ { position: 20 } ],
+    selectionField: [ { position: 20 } ]
+  }
+  PostingDate;
+
+  @UI: {
+    lineItem:       [ { position: 30 } ],
+    identification: [ { position: 30 } ]
+  }
+  TotalAmount;
+
+  @UI: {
+    lineItem:       [ { position: 40 } ],
+    identification: [ { position: 40 } ]
+  }
+  Currency;
+
+  @UI: {
+    lineItem:       [ { position: 50 } ],
+    identification: [ { position: 50 } ]
+  }
+  CreatedBy;
+
+  @UI: {
+    identification: [ { position: 60 } ]
+  }
+  CreatedAt;
+} 
