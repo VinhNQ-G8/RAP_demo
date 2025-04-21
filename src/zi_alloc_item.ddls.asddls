@@ -13,10 +13,10 @@ define view entity ZI_ALLOC_ITEM
   key alloc_no     as AllocNo,
       material     as Material,
       quantity     as Quantity,
-      @Semantics.unitOfMeasure: true
+//      @Semantics.unitOfMeasure: true
       unit         as Unit,
       amount       as Amount,
-      @Semantics.currencyCode: true
+//      @Semantics.currencyCode: true
       currency     as Currency,
       
       /* Associations */

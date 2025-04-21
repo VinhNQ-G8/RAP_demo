@@ -4,7 +4,7 @@
 @ObjectModel.semanticKey: ['ItemNo']
 
 define view entity ZC_ALLOC_DETAIL
-  provider contract transactional_query
+//  provider contract transactional_query
   as projection on ZI_ALLOC_DETAIL
 {
   key AllocationId,
@@ -18,7 +18,7 @@ define view entity ZC_ALLOC_DETAIL
       @Consumption.valueHelpDefinition: [{entity: {name: 'I_Currency', element: 'Currency' }}]
       Currency,
       
-      @Semantics.quantity.unitOfMeasure: 'KBETR'
+//      @Semantics.quantity.unitOfMeasure: 'KBETR'
       TaxRate,
       
       Note,

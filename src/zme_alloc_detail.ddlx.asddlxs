@@ -23,11 +23,15 @@ annotate view ZC_ALLOC_DETAIL with
   ]
 
   @UI.hidden: true
+  //  @UI: {
+  //      lineItem:       [ { position: 10, importance: #HIGH } ],
+  //      identification: [ { position: 10 } ]
+  //    }
   AllocationId;
 
   @UI: {
-    lineItem:       [ { position: 10, importance: #HIGH } ],
-    identification: [ { position: 10 } ]
+    lineItem:       [ { position: 15, importance: #HIGH } ],
+    identification: [ { position: 15 } ]
   }
   ItemNo;
 
@@ -35,7 +39,7 @@ annotate view ZC_ALLOC_DETAIL with
     lineItem:       [ { position: 20 } ],
     identification: [ { position: 20 } ]
   }
-  @Semantics.amount.currencyCode: 'Currency'
+  //  @Semantics.amount.currencyCode: 'Currency'
   Amount;
 
   @UI: {
@@ -52,8 +56,8 @@ annotate view ZC_ALLOC_DETAIL with
 
   @UI: {
     lineItem:       [ { position: 50 } ],
-    identification: [ { position: 50 } ],
-    multiLineText: true
+    identification: [ { position: 50 } ]
+  //    multiLineText: true
   }
   Note;
-} 
+}

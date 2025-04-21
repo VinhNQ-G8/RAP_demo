@@ -17,7 +17,7 @@ define view entity ZI_ALLOC_DETAIL
   key item_no      as ItemNo,
       @Semantics.amount.currencyCode: 'Currency'
       amount       as Amount,
-      @Semantics.currencyCode: true
+//      @Semantics.currencyCode: true
       currency     as Currency,
       tax_rate     as TaxRate,
       note         as Note,

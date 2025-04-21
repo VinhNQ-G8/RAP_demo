@@ -11,22 +11,22 @@ define root view entity ZI_ALLOC_HEADER
   as select from zalloc_header
   composition [0..*] of ZI_ALLOC_DETAIL as _Details
 {
-  key alloc_id       as AllocationId,
-      invoice_no     as InvoiceNo,
-      posting_date   as PostingDate,
+  key alloc_id              as AllocationId,
+      invoice_no            as InvoiceNo,
+      posting_date          as PostingDate,
       @Semantics.amount.currencyCode: 'Currency'
-      total_amount   as TotalAmount,
-      @Semantics.currencyCode: true
-      currency       as Currency,
+      total_amount          as TotalAmount,
+      //      @Semantics.currencyCode: true
+      currency              as Currency,
       @Semantics.user.createdBy: true
-      created_by     as CreatedBy,
+      created_by            as CreatedBy,
       @Semantics.systemDateTime.createdAt: true
-      created_at     as CreatedAt,
+      created_at            as CreatedAt,
       @Semantics.systemDateTime.lastChangedAt: true
-      cast( '' as timestampl ) as LastChangedAt,
+      last_changed_at       as LastChangedAt,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
-      cast( '' as timestampl ) as LocalLastChangedAt,
-      
+      local_last_changed_at as LocalLastChangedAt,
+
       /* Associations */
       _Details
-} 
+}

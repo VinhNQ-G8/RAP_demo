@@ -17,14 +17,22 @@ annotate view ZC_ALLOC_ITEM with
   ]
 
   @UI.hidden: true
+  //  @UI: {
+  //      lineItem:       [ { position: 10, importance: #HIGH } ],
+  //      identification: [ { position: 10 } ]
+  //    }
   AllocationId;
 
   @UI.hidden: true
+  //  @UI: {
+  //      lineItem:       [ { position: 12, importance: #HIGH } ],
+  //      identification: [ { position: 12 } ]
+  //    }
   ItemNo;
 
   @UI: {
-    lineItem:       [ { position: 10, importance: #HIGH } ],
-    identification: [ { position: 10 } ]
+    lineItem:       [ { position: 16, importance: #HIGH } ],
+    identification: [ { position: 16 } ]
   }
   AllocNo;
 
@@ -32,14 +40,14 @@ annotate view ZC_ALLOC_ITEM with
     lineItem:       [ { position: 20 } ],
     identification: [ { position: 20 } ]
   }
-  @Consumption.valueHelpDefinition: [{entity: {name: 'I_MaterialVH', element: 'Material' }}]
+  //  @Consumption.valueHelpDefinition: [{entity: {name: 'I_MaterialVH', element: 'Material' }}]
   Material;
 
   @UI: {
     lineItem:       [ { position: 30 } ],
     identification: [ { position: 30 } ]
   }
-  @Semantics.quantity.unitOfMeasure: 'Unit'
+  //  @Semantics.quantity.unitOfMeasure: 'Unit'
   Quantity;
 
   @UI: {
@@ -53,7 +61,7 @@ annotate view ZC_ALLOC_ITEM with
     lineItem:       [ { position: 50 } ],
     identification: [ { position: 50 } ]
   }
-  @Semantics.amount.currencyCode: 'Currency'
+  //  @Semantics.amount.currencyCode: 'Currency'
   Amount;
 
   @UI: {
@@ -61,4 +69,4 @@ annotate view ZC_ALLOC_ITEM with
     identification: [ { position: 60 } ]
   }
   Currency;
-} 
+}

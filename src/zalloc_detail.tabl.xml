@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <abapGit version="v1.0.0" serializer="LCL_OBJECT_TABL" serializer_version="v1.0.0">
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
@@ -60,17 +60,23 @@
     </DD03P>
     <DD03P>
      <FIELDNAME>TAX_RATE</FIELDNAME>
-     <ROLLNAME>KBETR</ROLLNAME>
+     <ROLLNAME>CHAR2</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
     <DD03P>
      <FIELDNAME>NOTE</FIELDNAME>
-     <ROLLNAME>TEXT200</ROLLNAME>
+     <ROLLNAME>TEXT10</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
    </DD03P_TABLE>
+   <TABL_EXTRAS>
+    <TDDAT>
+     <TABNAME>ZALLOC_DETAIL</TABNAME>
+     <CCLASS>CUS_DEV_SUP_DA</CCLASS>
+    </TDDAT>
+   </TABL_EXTRAS>
   </asx:values>
  </asx:abap>
-</abapGit> 
+</abapGit>
