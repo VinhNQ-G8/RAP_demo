@@ -2,50 +2,22 @@ managed implementation in class zbp_i_alloc_header unique;
 strict ( 2 );
 with draft;
 
-define behavior for ZI_ALLOC_HEADER alias Header
+define behavior for ZI_ALLOC_HEADER alias AllocationHeader
 persistent table zalloc_header
 draft table zalloc_header_d
 lock master
-total etag LastChangedAt
-authorization master ( global )
-etag master LocalLastChangedAt
+authorization master ( instance )
 {
   create;
   update;
   delete;
-
-  field ( readonly ) AllocationId, CreatedAt, CreatedBy, LastChangedAt, LocalLastChangedAt;
-  field ( mandatory ) InvoiceNo;
-  field ( features : instance ) TotalAmount;
-
-  field ( numbering : managed ) AllocationId;
-
-  association _Details { create; with draft; }
-
-  mapping for zalloc_header
-    {
-      AllocationId       = alloc_id;
-      InvoiceNo          = invoice_no;
-      PostingDate        = posting_date;
-      TotalAmount        = total_amount;
-      Currency           = currency;
-      CreatedBy          = created_by;
-      CreatedAt          = created_at;
-      LastChangedAt      = last_changed_at;
-      LocalLastChangedAt = local_last_changed_at;
-    }
-
-  //  validation validateInvoiceNo on save { create; update; }
-  //  determination calculateTotalAmount on modify { field Amount; }
-
-  draft action Edit;
-  draft action Activate;
-  draft action Discard;
-  draft action Resume;
-  draft determine action Prepare;
+  field ( readonly ) AllocHeaderID;
+  association _Detail { create; }
+  action ( features : instance ) allocateByQuantity result [1] $self;
+  action ( features : instance ) allocateByAmount result [1] $self;
 }
 
-define behavior for ZI_ALLOC_DETAIL alias Detail
+define behavior for ZI_ALLOC_DETAIL alias AllocationDetail
 persistent table zalloc_detail
 draft table zalloc_detail_d
 lock dependent by _Header
@@ -53,57 +25,23 @@ authorization dependent by _Header
 {
   update;
   delete;
-
-  field ( readonly ) AllocationId;
-  field ( mandatory : create ) ItemNo;
-  field ( readonly : update ) ItemNo;
-
-  association _Header { with draft; }
-  association _Items { with draft; }
-
-  mapping for zalloc_detail
-    {
-      AllocationId = alloc_id;
-      ItemNo       = item_no;
-      Amount       = amount;
-      Currency     = currency;
-      TaxRate      = tax_rate;
-      Note         = note;
-    }
-
-  //  validation validateAmount on save { create; update; }
-  //  determination calculateTax on modify { field Amount; }
+  field ( readonly ) AllocDetailID;
+  field ( readonly ) AllocHeaderID;
+  association _Header;
+  association _Item { create; }
+  action ( features : instance ) allocateByQuantity result [1] $self;
+  action ( features : instance ) allocateByAmount result [1] $self;
 }
 
-define behavior for ZI_ALLOC_ITEM alias Item
+define behavior for ZI_ALLOC_ITEM alias AllocationItem
 persistent table zalloc_item
 draft table zalloc_item_d
-lock dependent by _Header
-authorization dependent by _Header
+lock dependent by _Detail
+authorization dependent by _Detail
 {
   update;
   delete;
-
-  field ( readonly ) AllocationId, ItemNo;
-  field ( mandatory : create ) AllocNo;
-  field ( readonly : update ) AllocNo;
-  field ( mandatory ) Material, Quantity, Unit;
-
-  association _Header { with draft; }
-  association _Detail { with draft; }
-
-  mapping for zalloc_item
-    {
-      AllocationId = alloc_id;
-      ItemNo       = item_no;
-      AllocNo      = alloc_no;
-      Material     = material;
-      Quantity     = quantity;
-      Unit         = unit;
-      Amount       = amount;
-      Currency     = currency;
-    }
-
-  //  validation validateQuantity on save { create; update; }
-  //  determination calculateAmount on modify { field Quantity, Unit; }
+  field ( readonly ) AllocItemID;
+  field ( readonly ) AllocDetailID;
+  association _Detail;
 }

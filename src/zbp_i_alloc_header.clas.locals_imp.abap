@@ -29,3 +29,41 @@ CLASS lhc_Header IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+
+CLASS lhc_AllocationDetail DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+    METHODS allocateByQuantity FOR ACTION AllocationDetail~allocateByQuantity
+      IMPORTING keys FOR ACTION AllocationDetail~allocateByQuantity RESULT result.
+    METHODS allocateByAmount FOR ACTION AllocationDetail~allocateByAmount
+      IMPORTING keys FOR ACTION AllocationDetail~allocateByAmount RESULT result.
+ENDCLASS.
+
+CLASS lhc_AllocationDetail IMPLEMENTATION.
+  METHOD allocateByQuantity.
+    "TODO: Implement logic for quantity-based allocation
+    "This is a placeholder implementation
+    READ ENTITIES OF ZI_ALLOC_DETAIL IN LOCAL MODE
+      ENTITY AllocationDetail
+        FIELDS ( AllocDetailID AllocHeaderID Quantity )
+        WITH CORRESPONDING #( keys )
+      RESULT data(lt_details).
+
+    result = VALUE #( FOR detail IN lt_details
+      ( %tky = detail-%tky
+        %param = detail ) ).
+  ENDMETHOD.
+
+  METHOD allocateByAmount.
+    "TODO: Implement logic for amount-based allocation
+    "This is a placeholder implementation
+    READ ENTITIES OF ZI_ALLOC_DETAIL IN LOCAL MODE
+      ENTITY AllocationDetail
+        FIELDS ( AllocDetailID AllocHeaderID Amount )
+        WITH CORRESPONDING #( keys )
+      RESULT data(lt_details).
+
+    result = VALUE #( FOR detail IN lt_details
+      ( %tky = detail-%tky
+        %param = detail ) ).
+  ENDMETHOD.
+ENDCLASS.

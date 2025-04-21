@@ -1,10 +1,67 @@
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 @UI: {
   headerInfo: {
     typeName: 'Allocation Detail',
     typeNamePlural: 'Allocation Details',
-    title: { type: #STANDARD, value: 'ItemNo' }
-  }
+    title: { type: #STANDARD, value: 'AllocDetailID' }
+  },
+  presentationVariant: [{
+    sortOrder: [{
+      by: 'AllocDetailID',
+      direction: #DESC
+    }]
+  }],
+  selectionFields: ['AllocDetailID', 'AllocHeaderID', 'CostCenter', 'WBS'],
+  lineItem: [{
+    position: 10,
+    importance: #HIGH,
+    label: 'Detail ID',
+    type: #AS_DATALABEL
+  }, {
+    position: 20,
+    importance: #HIGH,
+    label: 'Header ID'
+  }, {
+    position: 30,
+    importance: #HIGH,
+    label: 'Cost Center'
+  }, {
+    position: 40,
+    importance: #HIGH,
+    label: 'WBS'
+  }, {
+    position: 50,
+    importance: #HIGH,
+    label: 'Quantity'
+  }, {
+    position: 60,
+    importance: #HIGH,
+    label: 'Amount'
+  }],
+  identification: [{
+    position: 10,
+    label: 'Detail ID'
+  }, {
+    position: 20,
+    label: 'Header ID'
+  }, {
+    position: 30,
+    label: 'Cost Center'
+  }, {
+    position: 40,
+    label: 'WBS'
+  }],
+  actions: [{
+    position: 10,
+    label: 'Allocate by Quantity',
+    type: #FOR_ACTION,
+    dataAction: 'allocateByQuantity'
+  }, {
+    position: 20,
+    label: 'Allocate by Amount',
+    type: #FOR_ACTION,
+    dataAction: 'allocateByAmount'
+  }]
 }
 annotate view ZC_ALLOC_DETAIL with
 {
