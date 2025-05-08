@@ -1,6 +1,0 @@
-@EndUserText.label: 'Service Definition for Allocation'
-define service ZUI_ALLOC_V4 {
-  expose ZC_ALLOC_HEADER as AllocationHeader;
-  expose ZC_ALLOC_DETAIL as AllocationDetail;
-  expose ZC_ALLOC_ITEM as AllocationItem;
-} 
